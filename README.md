@@ -16,6 +16,19 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
+3. Build the app
+
+   ```bash
+   eas build --platform android --local
+   ```
+
+4. Export the js bundle
+
+   ```bash
+   npx expo export --output-dir ./dist --experimental-bundle
+   node copyConfig.js
+   ```
+
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
