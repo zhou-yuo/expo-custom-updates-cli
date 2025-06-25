@@ -1,37 +1,18 @@
 import { Image } from 'expo-image';
-import * as Updates from 'expo-updates';
-import { Alert, Button, Platform, StyleSheet } from 'react-native';
-import Toast from 'react-native-toast-message';
+import { ActivityIndicator, Button, Platform, StyleSheet } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useAppUpdater } from '@/hooks/useAppUpdater'; // 导入 hook
 
 export default function HomeScreen() {
-  async function checkUpdate() {
-    try {
-      const update = await Updates.checkForUpdateAsync();
-      if (update.isAvailable) {
-        Alert.alert('检测到新版本');
-        await Updates.fetchUpdateAsync();
-        await Updates.reloadAsync();
-      }
-    } catch (error) {
-      Alert.alert('更新检查失败:', String(error));
-      console.error('更新检查失败:', error);
-    }
-  }
+  const { checkForAppUpdates, isCheckingForUpdate } = useAppUpdater();
 
-  const showToast = () => {
-    console.log('Showing toast');
-    Toast.show({
-      type: 'customToast',
-      position: 'bottom',
-      text1: 'Hello',
-      text2: 'This is some something 👋'
-    });
-  }
+  const handleCheckForUpdates = () => {
+    checkForAppUpdates(); // 手动触发更新检查
+  };
 
   return (
     <ParallaxScrollView
@@ -44,17 +25,11 @@ export default function HomeScreen() {
       }>
       <ThemedView>
         <Button
-          onPress={ checkUpdate }
-          title="CheckUpdate"
-          color="#409eff"
+          title={isCheckingForUpdate ? '正在检查更新...' : '检查更新'}
+          onPress={handleCheckForUpdates}
+          disabled={isCheckingForUpdate} // 禁用按钮，避免重复点击
         />
-      </ThemedView>
-      <ThemedView>
-        <Button
-          onPress={ showToast }
-          title="ShowToast"
-          color="#409eff"
-        />
+        {isCheckingForUpdate && <ActivityIndicator size="small" color="#0000ff" style={styles.indicator} />}
       </ThemedView>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
@@ -63,7 +38,7 @@ export default function HomeScreen() {
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">New version</ThemedText>
         <ThemedText>
-          20250527135559
+          20250527161445
         </ThemedText>
         <ThemedText>
           Hot update successful! You are now running the latest version of the starter app.
@@ -121,4 +96,9 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+  indicator: {
+    marginTop: 10,
+  },
 });
+
+
