@@ -10,10 +10,15 @@
     "newArchEnabled": true,
     "runtimeVersion": "app",
     "updates": {
-      "url": "http://192.168.1.142:3000/api/manifest",
+      "url": "http://192.168.88.247:3000/api/manifest",
       "enabled": true,
       "checkAutomatically": "NEVER",
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "codeSigningCertificate": "./code-signing/certificate.pem",
+      "codeSigningMetadata": {
+        "keyid": "main",
+        "alg": "rsa-v1_5-sha256"
+      }
     },
     "ios": {
       "supportsTablet": true,
@@ -65,6 +70,10 @@
       "eas": {
         "projectId": "c225bce3-7133-4cc0-a124-6b5711818da5"
       }
-    }
-  }
+    },
+    "owner": "zhouyuo"
+  },
+  "assets": [
+    "./certs/certificate.pem"
+  ]
 }

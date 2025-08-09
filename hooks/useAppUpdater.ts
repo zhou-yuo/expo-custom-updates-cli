@@ -25,6 +25,14 @@ export const useAppUpdater = () => {
 
     try {
       if (!__DEV__) {
+        // await Updates.setUpdateURLAndRequestHeadersOverride({
+        //   // 从环境变量、配置文件等动态获取
+        //   updateUrl: process.env.UPDATE_URL || 'https://your-cdn.com/updates',
+        //   requestHeaders: {
+        //     'Accept': 'application/json'
+        //   }
+        // });
+        
         const update = await Updates.checkForUpdateAsync();
 
         if (update.isAvailable) {

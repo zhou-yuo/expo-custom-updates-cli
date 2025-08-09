@@ -1,11 +1,10 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 // import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Toast, { BaseToastProps } from 'react-native-toast-message';
 
 // import { useAppUpdater } from '@/hooks/useAppUpdater'; // 导入新的 hook
@@ -58,18 +57,18 @@ export default function RootLayout() {
   // }, [checkForAppUpdates]); // 依赖项为 checkForAppUpdates
 
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  // const [loaded] = useFonts({
+  //   SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  // });
 
-  if (!loaded) { // 等待字体加载和应用初始化
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#409eff" />
-        <Text style={{ marginTop: 10 }}>正在准备应用...</Text>
-      </View>
-    );
-  }
+  // if (!loaded) { // 等待字体加载和应用初始化
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <ActivityIndicator size="large" color="#409eff" />
+  //       <Text style={{ marginTop: 10 }}>正在准备应用...</Text>
+  //     </View>
+  //   );
+  // }
 
   const toastConfig = {
     customToast: (props: BaseToastProps) => <CustomToast {...props} />,
@@ -77,11 +76,11 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <StatusBar style="auto" />
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" />
       <Toast config={toastConfig} />
     </ThemeProvider>
   );

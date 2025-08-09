@@ -38,7 +38,7 @@ export default function HomeScreen() {
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">New version</ThemedText>
         <ThemedText>
-          20250527161445
+          20250809 01 38
         </ThemedText>
         <ThemedText>
           Hot update successful! You are now running the latest version of the starter app.

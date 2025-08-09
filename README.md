@@ -61,3 +61,28 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+##启动
+npm start
+
+##检查
+npx expo-doctor
+
+##打包
+eas build --platform android --local
+eas build --platform android
+
+##导出热更
+npx expo export --dev		// 开发模式
+npx expo export --output-dir ./dist --experimental-bundle	// 生产模式
+node copyConfig.js
+
+##Expo doctor
+npx expo-doctor
+
+##调试Log
+adb logcat | grep "Updates"
+
+##codesigning 密钥生成
+https://docs.expo.dev/eas-update/code-signing/#configure-code-signing-in-an-android-native
+npx expo-updates codesigning:generate --key-output-directory keys --certificate-output-directory certs --certificate-validity-duration-years 10 --certificate-common-name "Your Organization Name"
